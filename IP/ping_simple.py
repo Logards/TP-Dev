@@ -1,5 +1,4 @@
 import os
 
 
-def ping(str) :
-    return os.system("ping -c 1 " + str)
+print(os.system("ping -c 1 " + "8.8.8.8"))

@@ -1,11 +1,9 @@
-import ping_simple
+import os
 from sys import argv
 
-def is_up():
-    response = ping_simple.ping(argv[1])
-    if response == 0 :
-        print("UP")
-    else:
-        print("DOWN")
 
-print(is_up())
+response = os.system("ping -c 1 " + argv[1])
+if response == 0:
+    print("UP")
+else:
+    print("DOWN")
