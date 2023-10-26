@@ -8,7 +8,7 @@ def lookup():
 
 
 def ping():
-    response = os.system('ping -c 1 ' + str(argv[2]))
+    response = os.system('ping -c 1 ' + str(argv[2]) + " >> /dev/null")
     if response == 0:
         return "UP !"
     else:
