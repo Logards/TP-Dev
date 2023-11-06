@@ -11,7 +11,8 @@ while True:
         data = conn.recv(1024)
         if not data: break
         print(f"Données reçues du client : {data}")
-        conn.sendall("Hi mate !")
+        arr = bytes("Hi mate !", 'utf-8')
+        conn.sendall(arr)
 
     except socket.error:
         print ("Error Occured.")
