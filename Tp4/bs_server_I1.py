@@ -17,3 +17,4 @@ while True:
         print ("Error Occured.")
         break
 conn.close()
+exit()
