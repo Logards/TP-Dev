@@ -18,4 +18,4 @@ while True:
         print ("Error Occured.")
         break
 conn.close()
-exit(0)
+exit()
