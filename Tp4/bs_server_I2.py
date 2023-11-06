@@ -11,6 +11,7 @@ while True:
     try:
         data = conn.recv(1024)
         data = data.decode()
+        print(data)
         if not data: break
         if data.find("meo"):
             print(f"Données reçues du client : {data}")
