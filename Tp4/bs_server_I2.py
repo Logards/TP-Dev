@@ -10,6 +10,7 @@ print(f"Un client vient de se co et son IP c'est {addr}.")
 while True:
     try:
         data = conn.recv(1024)
+        data = data.decode()
         if not data: break
         if data.find("meo"):
             print(f"Données reçues du client : {data}")
