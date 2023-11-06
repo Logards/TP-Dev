@@ -7,7 +7,6 @@ host = ''
 parser = argparse.ArgumentParser(description="Usage: allows you to communicate with a server")
 parser.add_argument("-p", "--port", action="store", help="change the default port by the argument")
 args = parser.parse_args()
-print(args.port)
 if args.port is None:
     port = 13337
 elif int(args.port) < 0 or int(args.port) > 65535:
@@ -24,7 +23,7 @@ ip_address = socket.gethostbyname(hostname)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.listen(1)
-logging.info(f'Connexion réussie à {ip_address}:{port}')
+logging.info(f"Le serveur tourne sur {ip_address}:{port}")
 conn, addr = s.accept()
 print(f"Un client vient de se co et son IP c'est {addr}.")
 while True:
