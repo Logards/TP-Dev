@@ -14,7 +14,7 @@ while True:
         if not data: break
         if data.find("meo"):
             print(f"Données reçues du client : {data}")
-            envoie = "Meo à toi confrère.".encode()
+            envoie = "Meo a toi confrere.".encode()
             conn.sendall(envoie)
         elif data.find("waf"):
             print(f"Données reçues du client : {data}")
