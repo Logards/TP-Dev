@@ -11,13 +11,12 @@ while True:
     try:
         data = conn.recv(1024)
         data = data.decode()
-        print(data)
         if not data: break
-        if data.find("meo"):
+        if "meo" in data:
             print(f"Données reçues du client : {data}")
             envoie = "Meo a toi confrere.".encode()
             conn.sendall(envoie)
-        elif data.find("waf"):
+        elif "waf" in data:
             print(f"Données reçues du client : {data}")
             envoie = "ptdr t ki".encode()
             conn.sendall(envoie)
