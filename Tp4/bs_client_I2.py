@@ -10,7 +10,7 @@ try:
     print("Que veux-tu envoyer au serveur : ")
     mess = input()
     s.connect((host, port))
-    envoie = str.encode()
+    envoie = mess.encode()
     s.sendall(envoie)
     # On reçoit 1024 bytes qui contiennent peut-être une réponse du serveur
     data = s.recv(1024)
