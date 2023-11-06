@@ -16,6 +16,7 @@ try:
     data = s.recv(1024)
     s.close()
     print(f"Connecté avec succès au serveur {host} sur le port {port}")
+    print(f"Le serveur a répondu {repr(data)}")
 except ConnectionRefusedError or ConnectionError:
     print("Vous n'etes pas connecte")
     exit(1)
