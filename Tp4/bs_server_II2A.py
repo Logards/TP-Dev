@@ -19,11 +19,11 @@ else:
     port = int(args.port)
 
 hostname = socket.gethostname()
-ip_address = socket.gethostbyname(hostname)
+ip_address = socket.gethostbyname(hostname)[2]
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.listen(1)
-logging.info(f"Le serveur tourne sur {s.getsockname()}:{port}")
+logging.info(f"Le serveur tourne sur {ip_address}:{port}")
 conn, addr = s.accept()
 print(f"Un client vient de se co et son IP c'est {addr}.")
 while True:
