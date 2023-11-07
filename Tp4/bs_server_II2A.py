@@ -10,7 +10,7 @@ formatter = ColoredFormatter(
     }
 )
 
-logging.basicConfig(filename="/var/log/bs_server/bs_client.log", format='%(asctime)s %(message)s')
+logging.basicConfig(filename="/var/log/bs_server/bs_server.log", format='%(asctime)s %(message)s')
 host = ''
 parser = argparse.ArgumentParser(description="Usage: allows you to communicate with a server")
 parser.add_argument("-p", "--port", action="store", help="change the default port by the argument")
