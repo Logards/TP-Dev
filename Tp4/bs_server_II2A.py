@@ -5,8 +5,10 @@ from colorlog import ColoredFormatter
 
 formatter = ColoredFormatter(
     "%(asctime)s s%(message)s",
+    datefmt=None,
+    reset=True,
     log_colors={
-        'INFO': 'red',
+        'INFO': 'white',
         'WARNING': 'yellow'
     },
     secondary_log_colors={},
