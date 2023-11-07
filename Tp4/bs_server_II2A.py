@@ -1,25 +1,32 @@
 import argparse
 import socket
 import logging
-from colorlog import ColoredFormatter
+import colorlog
 
-formatter = ColoredFormatter(
-    "%(log_color)s%(levelname)-8s%(reset)s %(blue)s%(message)s",
-    datefmt=None,
-    reset=True,
+logger = colorlog.getLogger()
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler('/var/log/bs_server/bs_server.log', 'w', 'utf-8')
+file_handler.setLevel(logging.INFO)
+stream_handler = colorlog.StreamHandler()
+stream_handler.setLevel(logging.INFO)
+
+formatter = colorlog.ColoredFormatter(
+    "%(log_color)s%(asctime)s %(levelname)s %(message)s",
+    datefmt='%Y-%m-%d %H:%M:%S',
     log_colors={
-        'INFO': 'red',
-        'WARNING': 'yellow'
-    },
-    secondary_log_colors={},
-    style='%'
+        'DEBUG': 'cyan',
+        'INFO': 'white',
+        'WARNING': 'yellow',
+        'ERROR': 'red',
+        'CRITICAL': 'red,bg_white',
+    }
 )
+file_handler.setFormatter(formatter)
+stream_handler.setFormatter(formatter)
 
-logging.basicConfig(filename="/var/log/bs_server/bs_server.log", format='%(asctime)s %(message)s', level=logging.INFO)
-logger = logging.getLogger(__name__)
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
+
 host = ''
 parser = argparse.ArgumentParser(description="Usage: allows you to communicate with a server")
 parser.add_argument("-p", "--port", action="store", help="change the default port by the argument")
