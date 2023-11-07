@@ -6,7 +6,7 @@ from colorlog import ColoredFormatter
 formatter = ColoredFormatter(
     "%(asctime)s s%(message)s",
     log_colors={
-        'INFO': 'white',
+        'INFO': 'red',
         'WARNING': 'yellow'
     },
     secondary_log_colors={},
