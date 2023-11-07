@@ -2,13 +2,11 @@ import socket
 
 host = ''
 port = 13337
-hostname = socket.gethostname()
-ip_address = socket.gethostbyname(hostname)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.listen(1)
 conn, addr = s.accept()
-print(f"Un client vient de se co et son IP c'est {addr}.")
+print(f"Un client vient de se co et son IP c'est {addr[0]}.")
 while True:
     try:
         data = conn.recv(1024)

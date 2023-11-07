@@ -1,8 +1,16 @@
 import argparse
 import socket
 import logging
+from colorlog import ColoredFormatter
 
-logging.basicConfig(filename="/var/log/bs_client.log", level=logging.INFO)
+formatter = ColoredFormatter(
+    log_colors={
+        'Info': 'white',
+        'Warning': 'yellow'
+    }
+)
+
+logging.basicConfig(filename="/var/log/bs_server/bs_client.log", format='%(asctime)s %(message)s')
 host = ''
 parser = argparse.ArgumentParser(description="Usage: allows you to communicate with a server")
 parser.add_argument("-p", "--port", action="store", help="change the default port by the argument")
@@ -18,31 +26,23 @@ elif int(args.port) < 1025 :
 else:
     port = int(args.port)
 
-hostname = socket.gethostname()
-ip_address = socket.gethostbyname(hostname)[2]
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.listen(1)
+hostname = socket.gethostname()
+ip_address = socket.gethostbyname(hostname)
 logging.info(f"Le serveur tourne sur {ip_address}:{port}")
 conn, addr = s.accept()
-print(f"Un client vient de se co et son IP c'est {addr}.")
+print(f"Un client {addr[0]} s'est connecté.")
 while True:
     try:
         data = conn.recv(1024)
         data = data.decode()
         if not data: break
-        if "meo" in data:
-            print(f"Données reçues du client : {data}")
-            envoie = "Meo a toi confrere.".encode()
-            conn.sendall(envoie)
-        elif "waf" in data:
-            print(f"Données reçues du client : {data}")
-            envoie = "ptdr t ki".encode()
-            conn.sendall(envoie)
-        else:
-            print(f"Données reçues du client : {data}")
-            envoie = "Mes respects humble humain.".encode()
-            conn.sendall(envoie)
+        logging.info(f"Le client {addr[0]} a envoyé {data}.")
+        envoie = "Hey mon frère !".encode()
+        conn.sendall(envoie)
+        logging.info(f"Réponse envoyée au client {addr[0]} : {envoie.decode()}.")
 
     except socket.error:
         print ("Error Occured.")
