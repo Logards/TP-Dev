@@ -4,11 +4,19 @@ import logging
 from colorlog import ColoredFormatter
 
 formatter = ColoredFormatter(
+    "%(asctime)s s%(message)s",
     log_colors={
-        'Info': 'white',
-        'Warning': 'yellow'
-    }
+        'INFO': 'white',
+        'WARNING': 'yellow'
+    },
+    secondary_log_colors={},
+    style='%'
 )
+
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 logging.basicConfig(filename="/var/log/bs_server/bs_server.log", format='%(asctime)s %(message)s', level=logging.INFO)
 host = ''
@@ -20,7 +28,7 @@ if args.port is None:
 elif int(args.port) < 0 or int(args.port) > 65535:
     print("ERROR Le port spécifié n'est pas un port possible (de 0 à 65535).")
     exit(1)
-elif int(args.port) < 1025 :
+elif int(args.port) < 1025:
     print("ERROR Le port spécifié est un port privilégié. Spécifiez un port au dessus de 1024.")
     exit(2)
 else:
@@ -45,7 +53,7 @@ while True:
         logging.info(f"Réponse envoyée au client {addr[0]} : {envoie.decode()}.")
 
     except socket.error:
-        print ("Error Occured.")
+        print("Error Occured.")
         exit(1)
 conn.close()
 exit()
