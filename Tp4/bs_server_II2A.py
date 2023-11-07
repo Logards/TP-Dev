@@ -8,19 +8,18 @@ formatter = ColoredFormatter(
     datefmt=None,
     reset=True,
     log_colors={
-        'INFO': 'white',
+        'INFO': 'red',
         'WARNING': 'yellow'
     },
     secondary_log_colors={},
     style='%'
 )
 
+logging.basicConfig(filename="/var/log/bs_server/bs_server.log", format='%(asctime)s %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 logger.addHandler(handler)
-
-logging.basicConfig(filename="/var/log/bs_server/bs_server.log", format='%(asctime)s %(message)s', level=logging.INFO)
 host = ''
 parser = argparse.ArgumentParser(description="Usage: allows you to communicate with a server")
 parser.add_argument("-p", "--port", action="store", help="change the default port by the argument")
