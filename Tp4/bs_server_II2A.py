@@ -50,8 +50,7 @@ s.listen(1)
 hostname = socket.gethostname()
 ip_address = socket.gethostbyname(hostname)
 logging.info(f"Le serveur tourne sur {ip_address}:{port}")
-while s.accept():
-    logging.warning(f"Aucun client depuis plus de une minute.")
+print(s.accept())
 conn, addr = s.accept()
 print(f"Un client {addr[0]} s'est connecté.")
 while True:
