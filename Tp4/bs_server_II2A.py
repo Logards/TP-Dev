@@ -1,6 +1,8 @@
 import argparse
 import socket
 import logging
+import time
+
 import colorlog
 
 logger = colorlog.getLogger()
@@ -48,6 +50,9 @@ s.listen(1)
 hostname = socket.gethostname()
 ip_address = socket.gethostbyname(hostname)
 logging.info(f"Le serveur tourne sur {ip_address}:{port}")
+while not s.accept():
+    time.sleep(60)
+    logging.warning(f"Aucun client depuis plus de une minute.")
 conn, addr = s.accept()
 print(f"Un client {addr[0]} s'est connecté.")
 while True:
