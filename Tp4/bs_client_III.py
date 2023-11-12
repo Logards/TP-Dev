@@ -53,6 +53,7 @@ try:
     if type(mess) is not str:
         raise TypeError("Tu te crois ou, moi je veux une string")
     if re.match(nb_regex, mess) and re.match(op_regex, mess):
+        print("salut")
         s.connect((host, port))
         logging.info(f"Connexion réussie à {ip()}:{port}.")
         envoie = mess.encode()
