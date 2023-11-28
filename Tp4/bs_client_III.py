@@ -3,7 +3,6 @@ import psutil
 import os
 import logging
 import re
-
 import colorlog
 
 def ip():
