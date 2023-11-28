@@ -1,4 +1,5 @@
 import socket
+from struct import pack
 
 # On définit la destination de la connexion
 host = '10.1.1.11'  # IP du serveur
@@ -9,7 +10,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connexion au serveur
 s.connect((host, port))
-envoie = bytes(10000)
+envoie = pack('h', 100000)
 s.sendall(envoie)
 # On reçoit 1024 bytes qui contiennent peut-être une réponse du serveur
 data = s.recv(1024)
