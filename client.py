@@ -9,7 +9,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connexion au serveur
 s.connect((host, port))
-envoie = bytes(10000)
+envoie = bytearray(10000)
 s.sendall(envoie)
 # On reçoit 1024 bytes qui contiennent peut-être une réponse du serveur
 data = s.recv(1024)
