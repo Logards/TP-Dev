@@ -10,7 +10,7 @@ while True:
     try:
         data = conn.recv(1024)
         if not data: break
-        print(f"Données reçues du client : {data}")
+        print(f"Données reçues du client : {data.decode()}")
         envoie = "Hi Mate !".encode()
         conn.sendall(envoie)
 
