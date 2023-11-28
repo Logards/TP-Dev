@@ -11,7 +11,7 @@ while True:
     try:
         data = conn.recv(1024)
         if not data: break
-        print(f"Données reçues du client : {type(unpack('h', data))}")
+        print(f"Données reçues du client : {type(unpack('hll', data))}")
         envoie = "Hi Mate !".encode()
         conn.sendall(envoie)
 
