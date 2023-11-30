@@ -2,7 +2,7 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('10.1.1.11', 13337))  
-s.listen()
+s.listen(1)
 client, client_addr = s.accept()
 
 s.listen(1)
