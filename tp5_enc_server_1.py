@@ -38,8 +38,8 @@ while True:
     message_received = b"".join(chunks).decode('utf-8')
     print(f"Received from client {message_received}")
     result = eval(message_received)
-    print(type(result))
-    sock.send(str(message_received).encode("utf-8"))
+    result = str(result)
+    sock.send(result).encode("utf-8")
 
 client.close()
 sock.close()
