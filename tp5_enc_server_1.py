@@ -40,7 +40,7 @@ while True:
     result = eval(message_received)
     result = str(result)
     print(f"Result: {result}")
-    sock.send(result.encode("utf-8"))
+    sock.send(result.encode())
 
 client.close()
 sock.close()
