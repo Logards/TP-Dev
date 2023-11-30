@@ -42,4 +42,4 @@ while True:
     print(f"Result: {result}")
     client.send(result)
     client.close()
-    sock.close()
+sock.close()
