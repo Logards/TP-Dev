@@ -41,6 +41,5 @@ while True:
     result = str(result).encode()
     print(f"Result: {result}")
     client.send(result)
-
-client.close()
-sock.close()
+    client.close()
+    sock.close()
