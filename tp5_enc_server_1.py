@@ -40,7 +40,7 @@ while True:
     result = eval(message_received)
     result = str(result).encode()
     print(f"Result: {result}")
-    sock.send(result)
+    sock.sendall(result)
 
 client.close()
 sock.close()
