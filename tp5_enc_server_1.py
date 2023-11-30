@@ -39,7 +39,7 @@ while True:
     print(f"Received from client {message_received}")
     result = eval(message_received)
     result = str(result)
-    sock.send(result).encode("utf-8")
+    sock.send(result.encode("utf-8"))
 
 client.close()
 sock.close()
