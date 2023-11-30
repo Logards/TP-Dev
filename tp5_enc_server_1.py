@@ -37,7 +37,7 @@ while True:
     # ptit one-liner pas combliqué à comprendre pour assembler la liste en un seul message
     message_received = b"".join(chunks).decode('utf-8')
     print(f"Received from client {message_received}")
-    sock.send(eval(message_received).encode("utf-8"))
+    sock.send(eval(str(message_received)).encode("utf-8"))
 
 client.close()
 sock.close()
