@@ -3,9 +3,10 @@ import socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(('10.1.1.11', 13337))
 sock.listen()
-client, client_addr = sock.accept()
+
 
 while True:
+    client, client_addr = sock.accept()
     # On lit les 4 premiers octets qui arrivent du client
     # Car dans le client, on a fixé la taille du header à 4 octets
     header = client.recv(4)
