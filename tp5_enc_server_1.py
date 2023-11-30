@@ -38,9 +38,9 @@ while True:
     message_received = b"".join(chunks).decode('utf-8')
     print(f"Received from client {message_received}")
     result = eval(message_received)
-    result = str(result)
+    result = str(result).encode()
     print(f"Result: {result}")
-    sock.send(result.encode())
+    sock.send(result)
 
 client.close()
 sock.close()
