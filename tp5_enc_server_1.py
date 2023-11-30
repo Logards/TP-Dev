@@ -7,6 +7,7 @@ client, client_addr = s.accept()
 
 s.listen(1)
 conn, addr = s.accept()
+print("salut a toi")
 
 while True:
     header = conn.recv(4)
