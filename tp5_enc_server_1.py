@@ -6,13 +6,14 @@ s.listen(1)
 client, client_addr = s.accept()
 
 s.listen(1)
+print("merde")
 conn, addr = s.accept()
 print("salut a toi")
 
 while True:
     header = conn.recv(4)
     if not header: break
-    msg_len = int.from_bytes(header, byteorder='big')
+    msg_len = int.from_bytes(header[0:4], byteorder='big')
     print(f"Lecture des {msg_len} prochains octets")
     chunks = []
     bytes_received = 0
