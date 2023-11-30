@@ -3,9 +3,7 @@ import re
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(('10.1.1.11', 13337))
-s.send('Hello'.encode())
 
-data = s.recv(1024)
 regex = "[+\-*]"
 msg = input("Calcul à envoyer: ")
 msg = msg.replace(' ', '')
