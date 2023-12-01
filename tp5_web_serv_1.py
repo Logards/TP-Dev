@@ -11,6 +11,7 @@ while True:
         print(f"Donnéees reçues du client : {data}")
         if "GET /" in data.decode():
             envoie = "HTTP/1.0 200 OK\n\n<h1>Hello je suis un serveur HTTP</h1>".encode()
+            print("hello")
             conn.sendall(envoie)
     
     except socket.error:
