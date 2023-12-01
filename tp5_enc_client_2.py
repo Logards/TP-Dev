@@ -19,9 +19,9 @@ number = msg.split(operator[0])
 for nb in number:
     if int(nb) > 4294967295:
         raise ValueError
-msg_encode = int(number[0]).to_bytes()
+msg_encode = int_to_bytes(int(number[0]))
 msg_encode += operator[0].encode()
-msg_encode += int(number[1]).to_bytes()
+msg_encode += int_to_bytes(int(number[1]))
 print(msg_encode)
 #s.send(payload)
 #s_data = s.recv(1024)
