@@ -1,26 +1,32 @@
 import socket
 
-def int_to_bytes(integer):
-    return integer.to_bytes((integer.bit_length() + 7) // 8, 'big')
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind(('127.0.0.1', 9999))
 
-def bytes_to_int(bytes):
-    return int.from_bytes(bytes, 'big')
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('10.1.1.11', 13337))
-sock.listen()
+s.listen(1)
 
 
-while True:
-    client, client_addr = sock.accept()
-    # On lit les 4 premiers octets qui arrivent du client
-    # Car dans le client, on a fixé la taille du header à 4 octets
-    header = client.recv(1)
-    if not header:
-        break
+def unbinaire(msg):
+    return int.from_bytes(msg, byteorder='big')
 
-    # On lit la valeur
-    msg_len = int.from_bytes(header[0:4], byteorder='big')
+
+def binaire(msg):
+    return msg.to_bytes((msg.bit_length() + 7) // 8, byteorder='big')
+
+
+def send(result):
+    header = len(binaire(result)).to_bytes(2, byteorder='big')
+    seq_fin = "<clafin>".encode()
+    return header + binaire(result) + seq_fin
+
+
+def receive():
+    conn, addr = s.accept()
+    data = conn.recv(2)
+    if data == b"":
+        return
+    msg_len = int.from_bytes(data[0:2], byteorder='big')
 
     print(f"Lecture des {msg_len} prochains octets")
 
@@ -30,8 +36,8 @@ while True:
     bytes_received = 0
     while bytes_received < msg_len:
         # Si on reçoit + que la taille annoncée, on lit 1024 par 1024 octets
-        chunk = client.recv(min(msg_len - bytes_received,
-                                1024))
+        chunk = conn.recv(min(msg_len - bytes_received,
+                              1024))
         if not chunk:
             raise RuntimeError('Invalid chunk received bro')
 
@@ -40,14 +46,41 @@ while True:
 
         # on ajoute la quantité d'octets reçus au compteur
         bytes_received += len(chunk)
+    fin = conn.recv(8)
+    if fin.decode() != "<clafin>":
+        raise RuntimeError('Invalid chunk received bro')
+    else:
+        # ptit one-liner pas combliqué à comprendre pour assembler la liste en un seul message
 
-    # ptit one-liner pas combliqué à comprendre pour assembler la liste en un seul message
-    message_received = b"".join(chunks).decode('utf-8')
-    print(chunks)
-    print(f"Received from client {message_received}")
-    result = eval(message_received)
-    result = str(result).encode()
-    print(f"Result: {result}")
-    client.send(result)
-    client.close()
-sock.close()
+        return b"".join(chunks)
+
+
+def client_connection():
+    try:
+        # On reçoit le calcul du client
+        message_received = receive()
+        if message_received is None:
+            conn.close()
+            return
+        first_header = int.from_bytes(message_received[0:2], byteorder='big')
+        first_int = unbinaire(message_received[2: 2 + first_header])
+        old = 2 + first_header
+        signe = message_received[old:old + 1].decode()
+        old += 1
+        second_int = unbinaire(message_received[old:])
+        res = eval(str(first_int) + signe + str(second_int))
+        conn.send(send(res))
+
+    except socket.error:
+        print("Error Occured.")
+    finally:
+        conn.close()
+
+
+while True:
+    try:
+        client_connection()
+    except KeyboardInterrupt:
+        print("Server stopped by user.")
+        break
+s.close()
