@@ -12,7 +12,7 @@ while True:
         if "GET /" in data.decode():
             envoie = "HTTP/1.0 200 OK\n\n<h1>Hello je suis un serveur HTTP</h1>".encode()
             print("hello")
-            sock.sendall(envoie)
+            sock.send(envoie)
     
     except socket.error:
         print ("Error Occured.")
