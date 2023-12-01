@@ -11,13 +11,10 @@ while True:
         print(f"Donnéees reçues du client : {data}")
         if "GET /" in data.decode():
             envoie = "HTTP/1.0 200 OK\n\n<h1>Hello je suis un serveur HTTP</h1>".encode()
-            print("hello")
             sock.send(envoie)
     
     except socket.error:
         print ("Error Occured.")
-        conn.close()
-        exit()
         break
 conn.close()
 exit()
