@@ -1,4 +1,6 @@
-file = open('toto.html')
-html_content = file.read()
+import base64
+
+file = open('hampter.jpg', 'rb')
+content = file.read()
 file.close()
-print(html_content)
+print(content)
