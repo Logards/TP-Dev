@@ -17,4 +17,5 @@ while True:
         print ("Error Occured.")
         break
 conn.close()
+sock.close()
 exit()
