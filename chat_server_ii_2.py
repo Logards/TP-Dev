@@ -20,7 +20,7 @@ async def handle_client_msg(reader, writer):
 
         # on envoie le message, ça se fait en deux lignes :
         ## une ligne pour write le message (l'envoyer)
-        writer.write(f"Hello client, j'suis le serveur !".encode())
+        writer.write(f"Hello {addr[0]}, {addr[1]}".encode())
         ## une ligne qui attend que tout soit envoyé (on peut donc l'await)
         await writer.drain()
 
@@ -28,7 +28,7 @@ async def main():
     # on crée un objet server avec asyncio.start_server()
     ## on précise une fonction à appeler quand un paquet est reçu
     ## on précise sur quelle IP et quel port écouter
-    server = await asyncio.start_server(handle_client_msg, '10.1.1.11', 13337)
+    server = await asyncio.start_server(handle_client_msg, '127.0.0.1', 8888)
 
     # ptit affichage côté serveur
     addrs = ', '.join(str(sock.getsockname()) for sock in server.sockets)
