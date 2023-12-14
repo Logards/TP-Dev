@@ -26,9 +26,11 @@ async def message(writer, pseudo = None):
 async def receive(reader):
     while True:
         data = await reader.read(1024)
-        if data.decode() == "":
+        if data == b"":
             print("Le serveur s'est barré au kazakhstan")
             exit()
+        else:
+            print(data.decode())
 
 
 async def main():

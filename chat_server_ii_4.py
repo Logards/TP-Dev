@@ -1,6 +1,7 @@
 import asyncio
 import json
 import argparse
+
 Clients = {}
 
 parser = argparse.ArgumentParser(description="Usage: allows you to communicate with a server")
@@ -49,7 +50,10 @@ async def handle_client_msg(reader, writer):
         else:
             print(f"Message received from {addr[0]}:{addr[1]} : {message}")
             for client in Clients:
+                print(client)
+
                 if client != addr:
+                    print(f"suppose ti send to {client}")
                     sender = Clients[client]["w"]
                     sender.write(f"{Clients[addr]['pseudo']} a dit : {message}".encode())
                     ## une ligne qui attend que tout soit envoyé (on peut donc l'await)
